@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-admin}">
+<head>
+    <title layout:fragment="title">Thêm / Sửa Category</title>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-4">
+
+    <h2 class="mb-3">Thêm / Sửa Category</h2>
+
+    <form th:action="@{/admin/categories/saveOrUpdate}"
+          th:object="${category}"
+          method="post"
+          enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label class="form-label">Tên Category</label>
+            <input type="text" th:field="*{name}" class="form-control" required/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ảnh</label>
+            <input type="file" name="file" class="form-control"/>
+            <!-- preview ảnh nếu có -->
+            <div th:if="*{image != null}">
+                <img th:src="@{*{image}}" alt="Category Image" width="100" class="mt-2"/>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu</button>
+        <a th:href="@{/admin/categories/list}" class="btn btn-secondary">Quay lại</a>
+    </form>
+
+</section>
+</body>
+</html>

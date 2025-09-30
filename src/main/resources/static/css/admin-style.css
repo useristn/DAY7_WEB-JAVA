@@ -1,0 +1,109 @@
+/* Reset nhẹ cho đồng bộ */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Container chính */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    border-radius: 12px;
+    border: none;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* Table */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.table th {
+    background: #343a40;
+    color: #fff;
+    text-align: center;
+}
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Form */
+.form-label {
+    font-weight: 600;
+}
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px 12px;
+}
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 6px rgba(13, 110, 253, 0.3);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 6px 14px;
+    transition: all 0.2s;
+}
+.btn:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+.btn-primary {
+    background: #0d6efd;
+    border: none;
+}
+.btn-warning {
+    background: #ffc107;
+    border: none;
+}
+.btn-danger {
+    background: #dc3545;
+    border: none;
+}
+
+/* Pagination */
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+.pagination .page-link {
+    border-radius: 6px;
+    margin: 0 2px;
+    color: #0d6efd;
+}
+
+/* Header & Footer */
+header {
+    background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    color: #fff;
+    padding: 15px 30px;
+    text-align: center;
+}
+header img {
+    max-height: 60px;
+}
+footer {
+    background: #343a40;
+    color: #ddd;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    font-size: 14px;
+}

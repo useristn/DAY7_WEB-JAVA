@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-admin}">
+<head>
+    <title layout:fragment="title">Tìm kiếm Categories</title>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-4">
+
+    <h2 class="mb-3">Tìm kiếm Categories</h2>
+
+    <!-- Search form -->
+    <form class="d-flex mb-3" method="get" th:action="@{/admin/categories/searchpaginated}">
+        <input type="text" name="name"
+               th:value="${name == 'null' ? '' : name}"
+               class="form-control me-2"
+               placeholder="Nhập tên category..."/>
+        <button type="submit" class="btn btn-primary me-2">Tìm</button>
+
+        <!-- ✅ Nút Back về List -->
+        <a th:href="@{/admin/categories/list}" class="btn btn-secondary">Quay lại danh sách</a>
+    </form>
+
+    <!-- Table -->
+    <table class="table table-striped shadow">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Ảnh</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cate : ${categoryPage.content}">
+            <td th:text="${cate.id}"></td>
+            <td th:text="${cate.name}"></td>
+            <td>
+                <img th:if="${cate.image}" th:src="@{${cate.image}}" alt="Category Image" width="60" class="img-thumbnail"/>
+                <span th:if="${cate.image == null}" class="text-muted">No image</span>
+            </td>
+            <td>
+                <a th:href="@{'/admin/categories/edit/' + ${cate.id}}" class="btn btn-sm btn-warning">Sửa</a>
+                <a th:href="@{'/admin/categories/delete/' + ${cate.id}}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
+            </td>
+        </tr>
+        <tr th:if="${categoryPage.content.size() == 0}">
+            <td colspan="4" class="text-center text-muted">Không tìm thấy dữ liệu</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav th:if="${categoryPage.totalPages > 1}">
+        <ul class="pagination justify-content-center">
+
+            <!-- PREVIOUS -->
+            <li class="page-item" th:classappend="${categoryPage.first} ? 'disabled'">
+                <span th:if="${name != null and name != '' and name != 'null'}">
+                    <a class="page-link"
+                       th:href="@{|/admin/categories/searchpaginated?page=${categoryPage.number}&size=${categoryPage.size}&name=${name}|}">Trước</a>
+                </span>
+                <span th:unless="${name != null and name != '' and name != 'null'}">
+                    <a class="page-link"
+                       th:href="@{|/admin/categories/searchpaginated?page=${categoryPage.number}&size=${categoryPage.size}|}">Trước</a>
+                </span>
+            </li>
+
+            <!-- PAGE NUMBERS -->
+            <li class="page-item"
+                th:each="i : ${pageNumbers}"
+                th:classappend="${i == categoryPage.number + 1} ? 'active'">
+                <span th:if="${name != null and name != '' and name != 'null'}">
+                    <a class="page-link"
+                       th:href="@{|/admin/categories/searchpaginated?page=${i}&size=${categoryPage.size}&name=${name}|}"
+                       th:text="${i}">1</a>
+                </span>
+                <span th:unless="${name != null and name != '' and name != 'null'}">
+                    <a class="page-link"
+                       th:href="@{|/admin/categories/searchpaginated?page=${i}&size=${categoryPage.size}|}"
+                       th:text="${i}">1</a>
+                </span>
+            </li>
+
+            <!-- NEXT -->
+            <li class="page-item" th:classappend="${categoryPage.last} ? 'disabled'">
+                <span th:if="${name != null and name != '' and name != 'null'}">
+                    <a class="page-link"
+                       th:href="@{|/admin/categories/searchpaginated?page=${categoryPage.number + 2}&size=${categoryPage.size}&name=${name}|}">Sau</a>
+                </span>
+                <span th:unless="${name != null and name != '' and name != 'null'}">
+                    <a class="page-link"
+                       th:href="@{|/admin/categories/searchpaginated?page=${categoryPage.number + 2}&size=${categoryPage.size}|}">Sau</a>
+                </span>
+            </li>
+
+        </ul>
+    </nav>
+
+</section>
+</body>
+</html>
